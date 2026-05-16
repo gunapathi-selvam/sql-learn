@@ -1,0 +1,19 @@
+---
+name: Teach
+description: Teach a SQL or Next.js concept at the right level for the 6-week plan
+---
+
+Teach the concept below as if to someone partway through a 6-week SQL + Next.js learning plan, building a Student Management System.
+
+**Structure (keep each section short):**
+1. **One-line definition.**
+2. **Why it exists** — the problem it solves.
+3. **Worked example** — using the project schema (students, courses, enrollments, grades). Show real SQL or real TSX, not pseudocode.
+4. **Common gotcha** — the mistake beginners make with this.
+5. **Practice exercise** — one prompt the user can run against their own DB. Do NOT give the answer.
+
+Skip theory the user can't act on this weekend. Tie everything to PostgreSQL + Next.js App Router.
+
+Concept to teach:
+
+{{{ input }}}

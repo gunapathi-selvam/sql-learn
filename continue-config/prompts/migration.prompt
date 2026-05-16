@@ -1,0 +1,22 @@
+---
+name: Migration
+description: Generate a PostgreSQL CREATE TABLE / ALTER TABLE migration
+---
+
+Generate a PostgreSQL migration for the request below.
+
+**Requirements (all of these):**
+1. `CREATE TABLE IF NOT EXISTS` for new tables; `ALTER TABLE` for changes.
+2. Every new table must have:
+   - Primary key using `GENERATED ALWAYS AS IDENTITY` (not `SERIAL`).
+   - `created_at TIMESTAMPTZ NOT NULL DEFAULT now()`.
+   - `updated_at TIMESTAMPTZ` (nullable; updated via trigger).
+3. Use appropriate types: `TEXT` not `VARCHAR(n)` unless length is meaningful; `TIMESTAMPTZ` not `TIMESTAMP`; `NUMERIC` not `FLOAT` for money/grades.
+4. `FOREIGN KEY` constraints with explicit `ON DELETE` behaviour (`CASCADE`, `RESTRICT`, or `SET NULL` — your call, justify it briefly).
+5. End with a `-- Rollback:` section showing how to undo the migration.
+
+**Output:** a single fenced `sql` block, ready to copy-paste and run.
+
+Request:
+
+{{{ input }}}

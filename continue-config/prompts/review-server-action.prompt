@@ -1,0 +1,24 @@
+---
+name: Review Server Action
+description: Review a Next.js Server Action for safety, correctness, and patterns
+---
+
+Review the Next.js Server Action below.
+
+**Checklist:**
+1. Is `'use server'` placed correctly (top of file or top of function)?
+2. Is user input validated (Zod, manual checks)? What happens with malformed input?
+3. Are DB queries parameterised? Any string concatenation creeping in?
+4. Is `revalidatePath` or `revalidateTag` called after mutations?
+5. Are errors caught and returned in a useful shape (not just thrown into the void)?
+6. Auth / authorisation — could a logged-out or wrong-user trigger this action?
+7. Idempotency — what happens if the action runs twice (double-click)?
+
+**Reply format:**
+- **Verdict:** `ship` / `needs work` / `unsafe`
+- **Issues:** bulleted, with severity (`blocker` / `major` / `minor` / `nit`)
+- **Suggested rewrite:** the corrected action, only if non-trivial fixes are needed
+
+Server Action:
+
+{{{ input }}}

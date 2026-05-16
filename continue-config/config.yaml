@@ -1,0 +1,134 @@
+name: SQL + Next.js Local Tutor
+version: 1.0.0
+schema: v1
+
+# =============================================================================
+# MODELS
+# =============================================================================
+# Both machines defined below. Continue's chat UI shows a dropdown so you pick
+# the one your current machine can run. Pull only what you need:
+#
+#   Linux 8 GB:     ollama pull qwen2.5-coder:3b
+#                   ollama pull qwen2.5-coder:1.5b      (for autocomplete)
+#                   ollama pull nomic-embed-text        (for @codebase search)
+#
+#   Windows 24 GB:  ollama pull qwen2.5-coder:7b
+#                   ollama pull qwen2.5-coder:1.5b      (for autocomplete)
+#                   ollama pull nomic-embed-text        (for @codebase search)
+#
+# To add another model later, copy any block below and adjust `name` + `model`.
+# =============================================================================
+
+models:
+  - name: Local 7B (Windows 24GB)
+    provider: ollama
+    model: qwen2.5-coder:7b
+    roles: [chat, edit, apply]
+    defaultCompletionOptions:
+      contextLength: 8192
+      temperature: 0.2
+
+  - name: Local 3B (Linux 8GB)
+    provider: ollama
+    model: qwen2.5-coder:3b
+    roles: [chat, edit, apply]
+    defaultCompletionOptions:
+      contextLength: 4096
+      temperature: 0.2
+
+  - name: Inline Autocomplete
+    provider: ollama
+    model: qwen2.5-coder:1.5b
+    roles: [autocomplete]
+
+  - name: Embeddings
+    provider: ollama
+    model: nomic-embed-text
+    roles: [embed]
+
+# =============================================================================
+# CONTEXT PROVIDERS
+# =============================================================================
+# Type `@<provider>` in chat to pull workspace context into the prompt.
+# Examples:
+#   @file lib/db.ts                 -> file contents
+#   @code                            -> the code you have highlighted
+#   @codebase how does auth work?    -> semantic search across the repo
+#   @docs PostgreSQL JSON functions  -> indexed docs (see `docs:` below)
+# =============================================================================
+
+context:
+  - provider: file
+  - provider: code
+  - provider: codebase
+  - provider: folder
+  - provider: terminal
+  - provider: problems
+  - provider: open
+  - provider: diff
+  - provider: docs
+
+# =============================================================================
+# RULES — always-on system instructions
+# =============================================================================
+# These prepend to every chat. Edit them as your project evolves.
+# Add more rules by appending to the list.
+# =============================================================================
+
+rules:
+  - |
+    The user is learning SQL and Next.js by building a Student Management System.
+    Stack: PostgreSQL + Next.js 14+ App Router (TypeScript) + raw SQL via the
+    `pg` library. The user prefers raw SQL over ORM for the first 5 weeks of
+    learning. Prisma is introduced in week 6 only.
+
+  - |
+    Project schema (use these table/column names — do not invent others):
+      students(id, name, email UNIQUE, dob DATE, enrollment_date DATE,
+               created_at TIMESTAMPTZ, deleted_at TIMESTAMPTZ NULL)
+      courses(id, code UNIQUE, title, credits)
+      enrollments(id, student_id FK, course_id FK, semester)
+      grades(id, enrollment_id FK, grade NUMERIC, graded_at TIMESTAMPTZ)
+      users(id, email, password_hash, role)   -- added in week 6
+
+  - |
+    SAFETY: Always use parameterised queries with $1, $2 placeholders.
+    NEVER suggest string concatenation for SQL. If unsure how a value
+    should be passed, ask before writing the query.
+
+  - |
+    HONESTY: When you don't know something, say so. Do not invent function
+    signatures, table columns, npm package names, or API surfaces. Prefer
+    "I'd verify this against the PostgreSQL docs" over a confident wrong
+    answer.
+
+  - |
+    STYLE: Prefer concise teaching — one-line definition, worked example,
+    gotcha, exercise. Don't lecture. The user studies 5 hours per weekend;
+    respect their time.
+
+# =============================================================================
+# DOCS — indexed documentation sources, queryable with @docs
+# =============================================================================
+# After saving this file, run "Continue: Reindex Docs" from the command palette.
+# First index takes a few minutes; afterwards it's cached locally.
+# Add more sources by appending entries.
+# =============================================================================
+
+docs:
+  - name: PostgreSQL 16
+    startUrl: https://www.postgresql.org/docs/16/index.html
+  - name: Next.js
+    startUrl: https://nextjs.org/docs
+  - name: node-postgres
+    startUrl: https://node-postgres.com/
+  - name: Prisma
+    startUrl: https://www.prisma.io/docs
+
+# =============================================================================
+# PROMPTS — see prompts/ directory for the slash commands
+# =============================================================================
+# Continue auto-loads any file matching ~/.continue/prompts/*.prompt
+# Type `/<filename-without-extension>` in chat to invoke it.
+# To add a new command: drop a new .prompt file in prompts/ — that's it.
+# =============================================================================

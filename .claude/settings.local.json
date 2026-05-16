@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($tools = @{}; foreach \\($t in 'python','python3','py','pandoc','wkhtmltopdf','node','npm'\\) { try { $cmd = Get-Command $t -ErrorAction Stop; $tools[$t] = $cmd.Source } catch { $tools[$t] = 'NOT FOUND' } }; $tools | Format-Table -AutoSize)",
+      "PowerShell(py --version)",
+      "PowerShell(py -c \"import sys; print\\(sys.executable\\)\")",
+      "PowerShell(py -m pip --version)"
+    ]
+  }
+}

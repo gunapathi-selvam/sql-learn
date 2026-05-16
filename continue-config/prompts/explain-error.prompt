@@ -1,0 +1,18 @@
+---
+name: Explain Error
+description: Diagnose a PostgreSQL or Next.js error and suggest concrete fixes
+---
+
+The user is debugging an error. Diagnose it.
+
+1. **Error type** — Postgres SQLSTATE? Next.js runtime? TypeScript? `pg` driver? Build-time vs runtime?
+2. **Plain-English cause** — what actually triggered it.
+3. **Top 2–3 root causes**, ordered by probability.
+4. **Fix for the most likely cause** — with code, not advice. If config-related, name the exact file and key.
+5. **Fallback** — one-line "if that didn't help, try this".
+
+Be concrete. Don't say "check your configuration"; say *which* setting and what value.
+
+Error / stack trace / context:
+
+{{{ input }}}

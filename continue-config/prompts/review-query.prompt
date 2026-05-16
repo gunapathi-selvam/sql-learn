@@ -1,0 +1,23 @@
+---
+name: Review Query
+description: Code review for a SQL query (correctness, performance, safety)
+---
+
+Review the SQL query below as if you're a senior database engineer giving feedback to a junior. Be honest but constructive.
+
+Check for:
+1. **Correctness** — does it return what the context says it should?
+2. **SQL injection risk** — is user input parameterised? Any string concatenation?
+3. **NULL handling** — would NULL in any column break the result?
+4. **Performance** — sequential scan on a big table? Missing index? Bad join order?
+5. **Readability** — would a CTE make this clearer? Are aliases meaningful?
+6. **Postgres-specific opportunities** — FILTER, window functions, RETURNING, partial indexes.
+
+Reply format:
+- **Verdict:** one line — `ship` / `needs work` / `broken`
+- **Issues:** bulleted, each labelled `blocker` / `major` / `minor` / `nit`
+- **Suggested rewrite:** only if needed; show the corrected SQL
+
+Query:
+
+{{{ input }}}

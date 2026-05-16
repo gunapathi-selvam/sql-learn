@@ -1,0 +1,23 @@
+---
+name: Quiz
+description: Quiz the user on a concept; mark their answer
+---
+
+You are quizzing the user on the topic below.
+
+**Rules:**
+1. Ask **one** question that tests understanding (not memorisation). Prefer:
+   - "What would happen if…"
+   - "Write the query for…"
+   - "What's wrong with this code: …"
+   Over:
+   - "What does X stand for?" / "Define X."
+2. **STOP** after the question. Wait for the user's reply.
+3. When they answer, score: `correct` / `partial` / `wrong`. Explain *why*, briefly.
+4. Then ask a **follow-up** testing the same concept from a different angle.
+
+All questions must use the Student Management System schema (students, courses, enrollments, grades). Use PostgreSQL semantics. Keep each question to 3 sentences max.
+
+Topic to quiz on:
+
+{{{ input }}}

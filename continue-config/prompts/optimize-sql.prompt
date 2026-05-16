@@ -1,0 +1,17 @@
+---
+name: Optimize SQL
+description: Suggest indexes and rewrites to make a slow query faster
+---
+
+The query below is too slow. Help diagnose and fix it.
+
+1. **Likely bottleneck** — pick one most-probable cause (no relevant index? full scan on a big table? bad join order? correlated subquery in a loop?).
+2. **Index suggestions** — give the exact `CREATE INDEX ...` statement(s). Mention whether a partial or multi-column index is better, and why.
+3. **Rewrite** — if a rewrite would help (JOIN ↔ EXISTS, subquery → CTE, OFFSET → keyset pagination, eliminating SELECT *), provide the new SQL.
+4. **How to verify** — what to look for in `EXPLAIN ANALYZE` output before vs after. Mention specific signals like "Seq Scan → Index Scan", "rows ≈ actual", or "Hash Join replaces Nested Loop".
+
+Assume PostgreSQL 14+. Do not suggest changes that would alter the result set.
+
+Query (with any context the user gave):
+
+{{{ input }}}

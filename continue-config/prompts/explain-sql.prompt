@@ -1,0 +1,19 @@
+---
+name: Explain SQL
+description: Walk through a SQL query clause-by-clause
+---
+
+You are teaching SQL to a Next.js developer building a Student Management System.
+
+Explain the SQL query below:
+
+1. **In one sentence**, state what the query returns.
+2. **Walk through each clause** (SELECT, FROM, JOIN, WHERE, GROUP BY, HAVING, ORDER BY, LIMIT) — what it does and why it's there.
+3. **Pitfalls** — call out NULL handling, ambiguous columns, missing indexes, or anything that would surprise a beginner.
+4. **A simpler / faster way?** — if there is one, mention it briefly. If not, say so.
+
+Use PostgreSQL semantics. Do not invent columns that aren't in the project schema; if you need one you can't see, ask.
+
+Query to explain:
+
+{{{ input }}}

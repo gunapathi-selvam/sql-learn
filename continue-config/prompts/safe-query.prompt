@@ -1,0 +1,25 @@
+---
+name: Safe Query
+description: Generate a parameterised, safe SQL query from a natural-language request
+---
+
+Write a PostgreSQL query for the request below.
+
+**Hard rules:**
+1. Use parameterised placeholders (`$1`, `$2`, ...) for any user-supplied value. NEVER concatenate strings.
+2. Explicit column lists in SELECT (no `SELECT *` unless the request explicitly asks for all columns).
+3. Add a one-line comment above the query explaining what it does.
+4. Use the project schema (students, courses, enrollments, grades). If you need a column that isn't in the schema, list it under "Assumptions".
+
+**Output format exactly:**
+```sql
+-- <one-line description>
+SELECT ...
+```
+
+**Parameters:** `$1 = ...`, `$2 = ...`
+**Assumptions:** (only if you made any)
+
+Request:
+
+{{{ input }}}
