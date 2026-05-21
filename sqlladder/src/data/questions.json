@@ -1,0 +1,2377 @@
+[
+  {
+    "id": "basic-select",
+    "title": "Basic SELECT",
+    "description": "Learn the foundations: SELECT, WHERE, LIMIT, ORDER BY, DISTINCT, and column aliases against the Sakila actor, film and customer tables.",
+    "icon": "🔍",
+    "questions": [
+      {
+        "id": "bs-01",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which clause retrieves every column from the actor table?",
+        "hint": "The asterisk is shorthand for 'all columns'.",
+        "options": ["SELECT all FROM actor;", "SELECT * FROM actor;", "GET * FROM actor;", "FETCH actor;"],
+        "answer": "B",
+        "explanation": "SELECT * FROM actor; returns every column for every row. * means 'all columns' in SQL.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "bs-02",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which keyword removes duplicate rows from a result set?",
+        "hint": "It comes immediately after SELECT.",
+        "options": ["UNIQUE", "DISTINCT", "ONLY", "NODUPES"],
+        "answer": "B",
+        "explanation": "DISTINCT eliminates duplicate rows in the result. Example: SELECT DISTINCT rating FROM film;",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "bs-03",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which query orders films by length, longest first?",
+        "hint": "DESC means descending.",
+        "options": [
+          "SELECT * FROM film SORT BY length DESC;",
+          "SELECT * FROM film ORDER BY length ASC;",
+          "SELECT * FROM film ORDER BY length DESC;",
+          "SELECT * FROM film ORDER length DESC;"
+        ],
+        "answer": "C",
+        "explanation": "ORDER BY length DESC sorts rows from highest length to lowest. ASC (default) is ascending.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "bs-04",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which clause limits the result to the first 10 rows?",
+        "hint": "MySQL uses a keyword, not TOP.",
+        "options": ["TOP 10", "ROWNUM 10", "LIMIT 10", "FIRST 10"],
+        "answer": "C",
+        "explanation": "MySQL/Sakila uses LIMIT 10 at the end of a query to cap the rows returned.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "bs-05",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "What is the difference between WHERE and HAVING?",
+        "hint": "One filters individual rows, the other filters groups.",
+        "options": [
+          "Both do the same thing",
+          "WHERE filters rows before grouping; HAVING filters groups after aggregation",
+          "WHERE works only with text; HAVING with numbers",
+          "HAVING runs before WHERE"
+        ],
+        "answer": "B",
+        "explanation": "WHERE applies to individual rows before GROUP BY. HAVING applies to aggregated groups produced by GROUP BY.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "bs-06",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which alias syntax renames the column first_name to fname?",
+        "hint": "AS is optional in MySQL.",
+        "options": [
+          "SELECT first_name AS fname FROM actor;",
+          "SELECT first_name = fname FROM actor;",
+          "SELECT fname (first_name) FROM actor;",
+          "SELECT first_name -> fname FROM actor;"
+        ],
+        "answer": "A",
+        "explanation": "Use AS to give a column an alias. SELECT first_name AS fname FROM actor; renames first_name to fname in the result.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "bs-07",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which query returns the second page (rows 11–20) of films ordered by title?",
+        "hint": "LIMIT accepts an offset.",
+        "options": [
+          "SELECT * FROM film ORDER BY title LIMIT 10;",
+          "SELECT * FROM film ORDER BY title LIMIT 10 OFFSET 10;",
+          "SELECT * FROM film ORDER BY title PAGE 2;",
+          "SELECT * FROM film ORDER BY title LIMIT 20;"
+        ],
+        "answer": "B",
+        "explanation": "LIMIT 10 OFFSET 10 skips the first 10 rows and returns the next 10. The MySQL shorthand is LIMIT 10, 10.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "bs-08",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "What does SELECT 1 FROM actor; return?",
+        "hint": "Think about what '1' evaluates to per row.",
+        "options": [
+          "A single row containing the number 1",
+          "An error — you cannot SELECT a literal",
+          "One row per actor, each containing the number 1",
+          "The count of actors"
+        ],
+        "answer": "C",
+        "explanation": "A literal in the SELECT list is evaluated once per row. So you get N rows of '1', where N = number of actors.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "bs-09",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which keyword sorts in descending order?",
+        "hint": "Three letters.",
+        "answer": "DESC",
+        "explanation": "DESC tells ORDER BY to sort from highest to lowest. ASC is ascending and is the default.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "bs-10",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which clause is used to filter rows in a SELECT?",
+        "hint": "Five letters.",
+        "answer": "WHERE",
+        "explanation": "WHERE filters rows before grouping or aggregation. Example: SELECT * FROM actor WHERE first_name = 'NICK';",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "bs-11",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Fill in the blank: SELECT first_name, last_name ___ actor;",
+        "hint": "The clause that names the source table.",
+        "answer": "FROM",
+        "explanation": "FROM specifies which table the data is being selected from.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "bs-12",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which keyword returns only unique values of a column?",
+        "hint": "Eight letters.",
+        "answer": "DISTINCT",
+        "explanation": "DISTINCT removes duplicates: SELECT DISTINCT rating FROM film; returns each rating once.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "bs-13",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "What is the default sort order if you write 'ORDER BY title' with no direction?",
+        "hint": "Three letters, opposite of descending.",
+        "answer": "ASC",
+        "explanation": "ORDER BY defaults to ASC (ascending). Writing ORDER BY title is the same as ORDER BY title ASC.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "bs-14",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which keyword is used to limit how many rows are returned in MySQL?",
+        "hint": "Same word used in pagination.",
+        "answer": "LIMIT",
+        "explanation": "LIMIT N caps the result at N rows. LIMIT OFFSET, N adds pagination.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "bs-15",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "Write a query that returns every column from the actor table.",
+        "hint": "Use the asterisk.",
+        "sql": "SELECT * FROM actor;",
+        "explanation": "SELECT * FROM actor; selects every column from the actor table.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "bs-16",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "Write a query that returns first_name and last_name for every actor, ordered by last_name ascending.",
+        "hint": "ORDER BY last_name (ASC is default).",
+        "sql": "SELECT first_name, last_name FROM actor ORDER BY last_name ASC;",
+        "explanation": "Use ORDER BY last_name ASC to sort alphabetically by last name.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "bs-17",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "Write a query that returns the first 5 films ordered by title.",
+        "hint": "Combine ORDER BY with LIMIT.",
+        "sql": "SELECT * FROM film ORDER BY title LIMIT 5;",
+        "explanation": "ORDER BY title puts rows in alphabetical order, LIMIT 5 caps the result at 5 rows.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "bs-18",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Write a query that returns the distinct ratings used in the film table.",
+        "hint": "Use DISTINCT.",
+        "sql": "SELECT DISTINCT rating FROM film;",
+        "explanation": "DISTINCT returns each rating value once (G, PG, PG-13, R, NC-17).",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "bs-19",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Return film title and rental_rate, ordered by rental_rate descending, limited to 10 rows.",
+        "hint": "ORDER BY rental_rate DESC, then LIMIT 10.",
+        "sql": "SELECT title, rental_rate FROM film ORDER BY rental_rate DESC LIMIT 10;",
+        "explanation": "ORDER BY rental_rate DESC sorts highest price first, LIMIT 10 returns the top 10.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "bs-20",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Return the second page (rows 11–20) of customers ordered by last_name. Use LIMIT and OFFSET.",
+        "hint": "LIMIT 10 OFFSET 10.",
+        "sql": "SELECT customer_id, first_name, last_name FROM customer ORDER BY last_name LIMIT 10 OFFSET 10;",
+        "explanation": "OFFSET 10 skips the first 10 rows; LIMIT 10 returns the next 10 — i.e. page 2 of a 10-row page.",
+        "schemaTables": ["customer"]
+      }
+    ]
+  },
+  {
+    "id": "filtering",
+    "title": "Filtering & Operators",
+    "description": "Master WHERE conditions with AND, OR, NOT, IN, BETWEEN, LIKE and IS NULL using Sakila tables.",
+    "icon": "🧪",
+    "questions": [
+      {
+        "id": "fo-01",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which operator tests whether a value is in a list of choices?",
+        "hint": "Two letters.",
+        "options": ["BETWEEN", "LIKE", "IN", "AMONG"],
+        "answer": "C",
+        "explanation": "IN (val1, val2, ...) returns true when the column matches any value in the list.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "fo-02",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which operator matches text patterns with wildcards % and _?",
+        "hint": "Four letters.",
+        "options": ["MATCH", "LIKE", "REGEX", "FIND"],
+        "answer": "B",
+        "explanation": "LIKE uses % (any chars) and _ (single char) wildcards. Example: WHERE title LIKE 'A%'.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "fo-03",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which range operator includes both endpoints?",
+        "hint": "Inclusive range.",
+        "options": ["IN", "BETWEEN", "RANGE", "FROMTO"],
+        "answer": "B",
+        "explanation": "BETWEEN x AND y is inclusive on both ends — equivalent to >= x AND <= y.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "fo-04",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "How do you check whether a column has no value?",
+        "hint": "= NULL doesn't work.",
+        "options": ["= NULL", "== NULL", "IS NULL", "EMPTY()"],
+        "answer": "C",
+        "explanation": "Comparing to NULL with = is always UNKNOWN. Use IS NULL or IS NOT NULL.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "fo-05",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which condition matches films whose title starts with 'STAR'?",
+        "hint": "% goes at the end.",
+        "options": [
+          "title LIKE 'STAR'",
+          "title LIKE '%STAR'",
+          "title LIKE 'STAR%'",
+          "title = 'STAR%'"
+        ],
+        "answer": "C",
+        "explanation": "LIKE 'STAR%' matches anything beginning with 'STAR'. '%' is zero-or-more characters.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "fo-06",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "What does WHERE rating NOT IN ('R','NC-17') return?",
+        "hint": "NOT negates IN.",
+        "options": [
+          "Films rated R or NC-17",
+          "Films whose rating is NULL",
+          "Films whose rating is anything except R and NC-17",
+          "An error"
+        ],
+        "answer": "C",
+        "explanation": "NOT IN excludes the listed values. Note: rows where rating IS NULL are also excluded.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "fo-07",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which condition matches payments between 2 and 5 dollars inclusive?",
+        "hint": "BETWEEN is inclusive.",
+        "options": [
+          "amount BETWEEN 2 AND 5",
+          "amount > 2 AND amount < 5",
+          "amount IN (2,5)",
+          "amount BETWEEN 5 AND 2"
+        ],
+        "answer": "A",
+        "explanation": "BETWEEN 2 AND 5 includes 2 and 5. The bounds must be in low-to-high order.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "fo-08",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "Which condition matches rentals not yet returned?",
+        "hint": "return_date will be NULL until returned.",
+        "options": [
+          "return_date = NULL",
+          "return_date IS NULL",
+          "return_date = ''",
+          "return_date < NOW()"
+        ],
+        "answer": "B",
+        "explanation": "Open rentals have return_date NULL. = NULL is always UNKNOWN; use IS NULL.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "fo-09",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which keyword combines two conditions that must both be true?",
+        "hint": "Three letters.",
+        "answer": "AND",
+        "explanation": "AND yields true only when both sides are true.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "fo-10",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which operator negates a boolean condition?",
+        "hint": "Three letters.",
+        "answer": "NOT",
+        "explanation": "NOT inverts a condition. Example: WHERE NOT (rating = 'R').",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "fo-11",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which wildcard in LIKE matches zero or more characters?",
+        "hint": "One symbol.",
+        "answer": "%",
+        "explanation": "% matches any sequence of characters (including empty). _ matches exactly one character.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "fo-12",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which LIKE pattern matches any single character?",
+        "hint": "One symbol.",
+        "answer": "_",
+        "explanation": "_ matches exactly one character. 'A_E' matches 'ACE', 'APE' but not 'ARENA'.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "fo-13",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Fill the blank: WHERE return_date ___ NULL  -- finds open rentals.",
+        "hint": "Two words.",
+        "answer": "IS",
+        "explanation": "Use IS NULL (not = NULL) because NULL is never equal to anything, even itself.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "fo-14",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which clause checks a value falls within an inclusive range?",
+        "hint": "Seven letters.",
+        "answer": "BETWEEN",
+        "explanation": "BETWEEN x AND y is inclusive on both ends.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "fo-15",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "List all films with a rating of 'PG' or 'G'.",
+        "hint": "Use IN.",
+        "sql": "SELECT film_id, title, rating FROM film WHERE rating IN ('PG','G');",
+        "explanation": "IN ('PG','G') matches either rating, equivalent to rating = 'PG' OR rating = 'G'.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "fo-16",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "List all customers whose first_name starts with the letter 'A'.",
+        "hint": "Use LIKE with the % wildcard.",
+        "sql": "SELECT customer_id, first_name, last_name FROM customer WHERE first_name LIKE 'A%';",
+        "explanation": "LIKE 'A%' matches any string starting with A.",
+        "schemaTables": ["customer"]
+      },
+      {
+        "id": "fo-17",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Find every film with a length between 90 and 120 minutes, ordered by length.",
+        "hint": "BETWEEN is inclusive.",
+        "sql": "SELECT film_id, title, length FROM film WHERE length BETWEEN 90 AND 120 ORDER BY length;",
+        "explanation": "BETWEEN 90 AND 120 includes 90 and 120. ORDER BY length sorts ascending by length.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "fo-18",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "List all rentals that have not yet been returned.",
+        "hint": "Check return_date IS NULL.",
+        "sql": "SELECT rental_id, rental_date, customer_id FROM rental WHERE return_date IS NULL;",
+        "explanation": "Outstanding rentals have NULL return_date. Use IS NULL.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "fo-19",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Find all R-rated films longer than 2 hours (>120 min).",
+        "hint": "Use AND to combine conditions.",
+        "sql": "SELECT title, length, rating FROM film WHERE rating = 'R' AND length > 120;",
+        "explanation": "Both conditions must hold, so we combine them with AND.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "fo-20",
+        "type": "code",
+        "difficulty": "hard",
+        "question": "Find customers whose first_name contains the letters 'AN' (case-insensitive by default in MySQL).",
+        "hint": "Wrap with % on both sides.",
+        "sql": "SELECT customer_id, first_name, last_name FROM customer WHERE first_name LIKE '%AN%';",
+        "explanation": "%AN% matches any string with AN anywhere inside. MySQL default collations are case-insensitive.",
+        "schemaTables": ["customer"]
+      }
+    ]
+  },
+  {
+    "id": "aggregates",
+    "title": "Aggregate Functions",
+    "description": "Summarise data with COUNT, SUM, AVG, MIN, MAX, GROUP BY and HAVING.",
+    "icon": "📊",
+    "questions": [
+      {
+        "id": "ag-01",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which function counts the number of rows?",
+        "hint": "Five letters.",
+        "options": ["SUM", "COUNT", "AVG", "TOTAL"],
+        "answer": "B",
+        "explanation": "COUNT(*) returns row count. COUNT(col) counts non-NULL values of col.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "ag-02",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which function returns the arithmetic mean?",
+        "hint": "Three letters.",
+        "options": ["MEAN", "AVG", "MEDIAN", "AVERAGE"],
+        "answer": "B",
+        "explanation": "AVG(col) returns SUM(col)/COUNT(col), ignoring NULLs.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "ag-03",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which clause groups rows for aggregation?",
+        "hint": "Two words.",
+        "options": ["ORDER BY", "GROUP BY", "PARTITION BY", "CLUSTER BY"],
+        "answer": "B",
+        "explanation": "GROUP BY collapses rows that share a key into one row per group, on which aggregates operate.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ag-04",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which clause filters groups produced by GROUP BY?",
+        "hint": "Six letters.",
+        "options": ["WHERE", "HAVING", "FILTER", "GROUP"],
+        "answer": "B",
+        "explanation": "HAVING is like WHERE, but it applies to grouped/aggregated rows after GROUP BY.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ag-05",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "What does COUNT(DISTINCT customer_id) return?",
+        "hint": "DISTINCT inside an aggregate.",
+        "options": [
+          "The number of customer rows",
+          "The number of distinct customer_id values",
+          "An error",
+          "The first customer_id"
+        ],
+        "answer": "B",
+        "explanation": "COUNT(DISTINCT col) counts how many unique non-NULL values appear in col.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "ag-06",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Why does COUNT(column) sometimes differ from COUNT(*)?",
+        "hint": "Think about NULL.",
+        "options": [
+          "They are always equal",
+          "COUNT(column) skips NULL values, COUNT(*) counts all rows",
+          "COUNT(*) is slower",
+          "COUNT(column) sorts the rows"
+        ],
+        "answer": "B",
+        "explanation": "COUNT(*) counts rows; COUNT(col) only counts rows where col IS NOT NULL.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "ag-07",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "In a query with GROUP BY rating, which column can you SELECT without aggregating it?",
+        "hint": "Only the grouping key.",
+        "options": ["title", "rating", "length", "rental_rate"],
+        "answer": "B",
+        "explanation": "Non-aggregated columns in SELECT must be in GROUP BY (in strict SQL mode). Here only rating qualifies.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ag-08",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "Which query returns ratings with more than 100 films?",
+        "hint": "Filter on COUNT(*) using HAVING.",
+        "options": [
+          "SELECT rating, COUNT(*) FROM film WHERE COUNT(*) > 100 GROUP BY rating;",
+          "SELECT rating, COUNT(*) FROM film GROUP BY rating HAVING COUNT(*) > 100;",
+          "SELECT rating FROM film GROUP BY rating WHERE COUNT(*) > 100;",
+          "SELECT rating, COUNT(*) FROM film GROUP BY rating ORDER BY COUNT(*) > 100;"
+        ],
+        "answer": "B",
+        "explanation": "Aggregate filters must use HAVING after GROUP BY. WHERE runs before grouping and cannot see COUNT(*).",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ag-09",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which function returns the largest value?",
+        "hint": "Three letters.",
+        "answer": "MAX",
+        "explanation": "MAX(col) returns the largest non-NULL value of col.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ag-10",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which function returns the smallest value?",
+        "hint": "Three letters.",
+        "answer": "MIN",
+        "explanation": "MIN(col) returns the smallest non-NULL value of col.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ag-11",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which function adds numeric values together?",
+        "hint": "Three letters.",
+        "answer": "SUM",
+        "explanation": "SUM(col) returns the total of all non-NULL values in col.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "ag-12",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Fill the blank: SELECT rating, COUNT(*) FROM film ___ rating;",
+        "hint": "Two words.",
+        "answer": "GROUP BY",
+        "explanation": "GROUP BY rating gives one row per rating with its COUNT(*).",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ag-13",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which clause filters aggregated groups?",
+        "hint": "Six letters.",
+        "answer": "HAVING",
+        "explanation": "HAVING filters rows after grouping; WHERE filters before.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ag-14",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which keyword combined with COUNT counts unique values only?",
+        "hint": "Eight letters, inside parentheses.",
+        "answer": "DISTINCT",
+        "explanation": "COUNT(DISTINCT col) counts unique non-NULL values of col.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "ag-15",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "Count how many films are in the film table.",
+        "hint": "COUNT(*) on film.",
+        "sql": "SELECT COUNT(*) AS total_films FROM film;",
+        "explanation": "COUNT(*) returns the total number of rows in the film table.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ag-16",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "Return the average rental_rate of all films.",
+        "hint": "AVG(rental_rate).",
+        "sql": "SELECT AVG(rental_rate) AS avg_rate FROM film;",
+        "explanation": "AVG(rental_rate) gives the arithmetic mean. NULLs are ignored.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ag-17",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Return number of films per rating, ordered by count descending.",
+        "hint": "GROUP BY rating, then ORDER BY COUNT(*) DESC.",
+        "sql": "SELECT rating, COUNT(*) AS film_count FROM film GROUP BY rating ORDER BY film_count DESC;",
+        "explanation": "GROUP BY rating collapses films into one row per rating; COUNT(*) sizes each group.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ag-18",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Find ratings that contain more than 200 films.",
+        "hint": "Use HAVING.",
+        "sql": "SELECT rating, COUNT(*) AS film_count FROM film GROUP BY rating HAVING COUNT(*) > 200;",
+        "explanation": "HAVING filters the grouped rows — keep only ratings with more than 200 films.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ag-19",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Show min, max and average payment amount.",
+        "hint": "Three aggregates on amount.",
+        "sql": "SELECT MIN(amount) AS min_amt, MAX(amount) AS max_amt, AVG(amount) AS avg_amt FROM payment;",
+        "explanation": "MIN, MAX, AVG can be combined in a single SELECT with no GROUP BY for whole-table aggregates.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "ag-20",
+        "type": "code",
+        "difficulty": "hard",
+        "question": "List customers who have made more than 30 rentals.",
+        "hint": "GROUP BY customer_id, then HAVING COUNT(*) > 30.",
+        "sql": "SELECT customer_id, COUNT(*) AS rental_count FROM rental GROUP BY customer_id HAVING COUNT(*) > 30 ORDER BY rental_count DESC;",
+        "explanation": "Group rentals by customer_id, then keep groups whose rental count exceeds 30.",
+        "schemaTables": ["rental"]
+      }
+    ]
+  },
+  {
+    "id": "joins",
+    "title": "JOINs",
+    "description": "Combine tables with INNER, LEFT, RIGHT, SELF and multi-table joins.",
+    "icon": "🔗",
+    "questions": [
+      {
+        "id": "jn-01",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which join returns only matching rows from both sides?",
+        "hint": "It's the default when you write just JOIN.",
+        "options": ["LEFT JOIN", "RIGHT JOIN", "INNER JOIN", "FULL JOIN"],
+        "answer": "C",
+        "explanation": "INNER JOIN returns rows where the ON predicate is true on both sides; unmatched rows are dropped.",
+        "schemaTables": ["film", "language"]
+      },
+      {
+        "id": "jn-02",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which join keeps all rows from the left table even if no match exists on the right?",
+        "hint": "Use NULLs for missing right-side columns.",
+        "options": ["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "CROSS JOIN"],
+        "answer": "B",
+        "explanation": "LEFT JOIN preserves every left-side row. Unmatched right-side columns appear as NULL.",
+        "schemaTables": ["customer", "rental"]
+      },
+      {
+        "id": "jn-03",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "What does ON specify in a JOIN?",
+        "hint": "It's a condition.",
+        "options": [
+          "Which database to use",
+          "The join predicate linking the two tables",
+          "Column aliases",
+          "Sorting order"
+        ],
+        "answer": "B",
+        "explanation": "ON gives the predicate that decides which rows of the two tables match.",
+        "schemaTables": ["film", "film_actor"]
+      },
+      {
+        "id": "jn-04",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which join joins a table to itself?",
+        "hint": "Self-explanatory name.",
+        "options": ["MIRROR JOIN", "CLONE JOIN", "SELF JOIN", "RECURSIVE JOIN"],
+        "answer": "C",
+        "explanation": "A self join joins a table to itself, usually with two different aliases.",
+        "schemaTables": ["staff"]
+      },
+      {
+        "id": "jn-05",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "What is a Cartesian product produced by?",
+        "hint": "Forgetting the ON clause.",
+        "options": [
+          "INNER JOIN with an ON clause",
+          "CROSS JOIN or JOIN with no condition",
+          "LEFT JOIN",
+          "Self JOIN"
+        ],
+        "answer": "B",
+        "explanation": "CROSS JOIN (or JOIN without ON) returns every combination of left × right rows — the Cartesian product.",
+        "schemaTables": ["film", "actor"]
+      },
+      {
+        "id": "jn-06",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "To list every customer plus their rentals, including customers with no rentals, you should use:",
+        "hint": "Keep all customers.",
+        "options": [
+          "INNER JOIN rental",
+          "LEFT JOIN rental",
+          "RIGHT JOIN rental",
+          "CROSS JOIN rental"
+        ],
+        "answer": "B",
+        "explanation": "LEFT JOIN keeps all rows from customer, even when no matching rental exists.",
+        "schemaTables": ["customer", "rental"]
+      },
+      {
+        "id": "jn-07",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "Which junction table connects film and actor in Sakila?",
+        "hint": "Combines both names.",
+        "options": ["actor_film", "film_actor", "cast", "film_role"],
+        "answer": "B",
+        "explanation": "film_actor (actor_id, film_id) is the M:N bridge between film and actor.",
+        "schemaTables": ["film_actor"]
+      },
+      {
+        "id": "jn-08",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "Which join returns all rows from both tables, NULLs where no match? (Not natively supported in MySQL.)",
+        "hint": "Full ___ join.",
+        "options": ["CROSS JOIN", "FULL OUTER JOIN", "RIGHT JOIN", "INNER JOIN"],
+        "answer": "B",
+        "explanation": "FULL OUTER JOIN keeps unmatched rows from both sides. MySQL doesn't support it directly; emulate with UNION of LEFT and RIGHT joins.",
+        "schemaTables": ["customer", "rental"]
+      },
+      {
+        "id": "jn-09",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which keyword introduces the predicate of a JOIN?",
+        "hint": "Two letters.",
+        "answer": "ON",
+        "explanation": "ON specifies the join predicate. Example: ... JOIN language l ON f.language_id = l.language_id.",
+        "schemaTables": ["film", "language"]
+      },
+      {
+        "id": "jn-10",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which join keeps every row from the right side, NULL for missing left side?",
+        "hint": "Two words, starts with R.",
+        "answer": "RIGHT JOIN",
+        "explanation": "RIGHT JOIN is the mirror of LEFT JOIN — all right-side rows, plus matching left-side rows.",
+        "schemaTables": ["customer", "rental"]
+      },
+      {
+        "id": "jn-11",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which keyword joins a table with itself (we name it differently with an alias)?",
+        "hint": "Four letters.",
+        "answer": "SELF",
+        "explanation": "A SELF JOIN aliases the same table twice and joins it on a relationship within itself.",
+        "schemaTables": ["staff"]
+      },
+      {
+        "id": "jn-12",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which Sakila table links film and category?",
+        "hint": "Same naming convention as film_actor.",
+        "answer": "film_category",
+        "explanation": "film_category (film_id, category_id) is the M:N bridge between film and category.",
+        "schemaTables": ["film_category"]
+      },
+      {
+        "id": "jn-13",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "When using LEFT JOIN, columns from the unmatched right table appear as what?",
+        "hint": "Four letters.",
+        "answer": "NULL",
+        "explanation": "Right-side columns are NULL when no matching row exists on the right side.",
+        "schemaTables": ["customer", "rental"]
+      },
+      {
+        "id": "jn-14",
+        "type": "single",
+        "difficulty": "hard",
+        "question": "How many JOINs do you need to list film_title and category_name? Use film + film_category + category.",
+        "hint": "Two joins.",
+        "answer": "2",
+        "explanation": "film → film_category → category requires two JOINs to bridge through the junction table.",
+        "schemaTables": ["film", "film_category", "category"]
+      },
+      {
+        "id": "jn-15",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "Return film title and language name for every film.",
+        "hint": "INNER JOIN on language_id.",
+        "sql": "SELECT f.title, l.name AS language FROM film f INNER JOIN language l ON f.language_id = l.language_id;",
+        "explanation": "Joining film to language on language_id pulls in the language name for each film.",
+        "schemaTables": ["film", "language"]
+      },
+      {
+        "id": "jn-16",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "List every customer plus the date of each rental. Include customers who have never rented.",
+        "hint": "LEFT JOIN rental.",
+        "sql": "SELECT c.customer_id, c.first_name, c.last_name, r.rental_date FROM customer c LEFT JOIN rental r ON c.customer_id = r.customer_id ORDER BY c.customer_id;",
+        "explanation": "LEFT JOIN keeps all customers; rental_date is NULL when the customer has no rentals.",
+        "schemaTables": ["customer", "rental"]
+      },
+      {
+        "id": "jn-17",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "List film title and actor full name for every film/actor pairing.",
+        "hint": "film → film_actor → actor.",
+        "sql": "SELECT f.title, CONCAT(a.first_name, ' ', a.last_name) AS actor_name FROM film f INNER JOIN film_actor fa ON f.film_id = fa.film_id INNER JOIN actor a ON fa.actor_id = a.actor_id ORDER BY f.title;",
+        "explanation": "film_actor is the junction. Two INNER JOINs walk through it to connect film and actor.",
+        "schemaTables": ["film", "film_actor", "actor"]
+      },
+      {
+        "id": "jn-18",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "List each film with its category name.",
+        "hint": "film → film_category → category.",
+        "sql": "SELECT f.title, c.name AS category FROM film f INNER JOIN film_category fc ON f.film_id = fc.film_id INNER JOIN category c ON fc.category_id = c.category_id ORDER BY f.title;",
+        "explanation": "Two INNER JOINs bridge film and category via film_category.",
+        "schemaTables": ["film", "film_category", "category"]
+      },
+      {
+        "id": "jn-19",
+        "type": "code",
+        "difficulty": "hard",
+        "question": "Self join staff with itself to list pairs of staff who share the same store_id (no duplicates and no self-pair).",
+        "hint": "Use s1.staff_id < s2.staff_id.",
+        "sql": "SELECT s1.first_name AS staff1, s2.first_name AS staff2, s1.store_id FROM staff s1 INNER JOIN staff s2 ON s1.store_id = s2.store_id AND s1.staff_id < s2.staff_id;",
+        "explanation": "s1.staff_id < s2.staff_id avoids duplicate pairs and prevents pairing a row with itself.",
+        "schemaTables": ["staff"]
+      },
+      {
+        "id": "jn-20",
+        "type": "code",
+        "difficulty": "hard",
+        "question": "List each customer's total payment amount; include customers with zero payments.",
+        "hint": "LEFT JOIN payment, then SUM with COALESCE.",
+        "sql": "SELECT c.customer_id, c.first_name, c.last_name, COALESCE(SUM(p.amount), 0) AS total_paid FROM customer c LEFT JOIN payment p ON c.customer_id = p.customer_id GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY total_paid DESC;",
+        "explanation": "LEFT JOIN keeps customers without payments; COALESCE turns their NULL sum into 0.",
+        "schemaTables": ["customer", "payment"]
+      }
+    ]
+  },
+  {
+    "id": "subqueries",
+    "title": "Subqueries",
+    "description": "Use scalar, correlated, EXISTS and IN subqueries to express set logic and per-row lookups.",
+    "icon": "🪆",
+    "questions": [
+      {
+        "id": "sq-01",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "A subquery that returns a single value is called:",
+        "hint": "Scale of 1.",
+        "options": ["Set subquery", "Scalar subquery", "Inline view", "CTE"],
+        "answer": "B",
+        "explanation": "A scalar subquery returns one row and one column. It can be used like a value.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "sq-02",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which operator tests whether a subquery returns any rows?",
+        "hint": "Six letters.",
+        "options": ["HAS", "EXISTS", "ANY", "MEMBER"],
+        "answer": "B",
+        "explanation": "EXISTS (subquery) is true when the subquery returns at least one row.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "sq-03",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which keyword tests if a column matches any value returned by a subquery?",
+        "hint": "Two letters.",
+        "options": ["IN", "EQ", "OF", "MATCH"],
+        "answer": "A",
+        "explanation": "col IN (SELECT ...) is true when col matches at least one value returned by the subquery.",
+        "schemaTables": ["customer"]
+      },
+      {
+        "id": "sq-04",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "What is a correlated subquery?",
+        "hint": "References the outer row.",
+        "options": [
+          "A subquery that runs once",
+          "A subquery that references columns from the outer query",
+          "A subquery that joins two tables",
+          "A view"
+        ],
+        "answer": "B",
+        "explanation": "Correlated subqueries reference the outer query and are evaluated row-by-row.",
+        "schemaTables": ["customer", "rental"]
+      },
+      {
+        "id": "sq-05",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which is typically faster on large data: EXISTS or IN — when the inner table has duplicates?",
+        "hint": "EXISTS can short-circuit.",
+        "options": [
+          "IN is always faster",
+          "EXISTS often performs better because it short-circuits and ignores duplicates",
+          "They are identical",
+          "EXISTS only works on small tables"
+        ],
+        "answer": "B",
+        "explanation": "EXISTS stops at the first match per outer row and is often optimised better when the subquery has duplicates.",
+        "schemaTables": ["customer", "rental"]
+      },
+      {
+        "id": "sq-06",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "What does the following return? SELECT * FROM film WHERE length = (SELECT MAX(length) FROM film);",
+        "hint": "Scalar subquery in a filter.",
+        "options": [
+          "All films",
+          "The longest film(s)",
+          "An error",
+          "Films with length = 0"
+        ],
+        "answer": "B",
+        "explanation": "MAX(length) is a scalar; the outer query keeps films whose length equals that maximum.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "sq-07",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "What's the difference between NOT IN and NOT EXISTS regarding NULL?",
+        "hint": "NOT IN is unsafe with NULLs.",
+        "options": [
+          "Both treat NULL identically",
+          "NOT IN can return no rows if the subquery includes any NULL; NOT EXISTS is unaffected",
+          "NOT EXISTS only works with one column",
+          "NOT IN ignores NULLs"
+        ],
+        "answer": "B",
+        "explanation": "If the NOT IN subquery returns a NULL, the whole comparison becomes UNKNOWN and excludes everything. NOT EXISTS is NULL-safe.",
+        "schemaTables": ["customer", "rental"]
+      },
+      {
+        "id": "sq-08",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "Where can a subquery NOT appear?",
+        "hint": "Trick — it can appear almost anywhere.",
+        "options": [
+          "Inside SELECT list",
+          "Inside FROM clause",
+          "Inside WHERE clause",
+          "Inside the GROUP BY of MySQL 8 (it errors)"
+        ],
+        "answer": "D",
+        "explanation": "Subqueries can appear in SELECT, FROM, WHERE, HAVING and JOINs. GROUP BY accepts expressions, not standalone subqueries.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "sq-09",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which keyword starts a subquery you reference as a derived table in FROM?",
+        "hint": "Same as a regular query.",
+        "answer": "SELECT",
+        "explanation": "Subqueries are just SELECT statements, wrapped in parentheses and given an alias when used in FROM.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "sq-10",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which keyword tests if a subquery yields one or more rows?",
+        "hint": "Six letters.",
+        "answer": "EXISTS",
+        "explanation": "EXISTS returns true when the inner query produces at least one row.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "sq-11",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which keyword is the negation of EXISTS?",
+        "hint": "Two words.",
+        "answer": "NOT EXISTS",
+        "explanation": "NOT EXISTS is true when the subquery returns no rows.",
+        "schemaTables": ["customer"]
+      },
+      {
+        "id": "sq-12",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "A subquery that runs once and returns a single value is called a ___ subquery.",
+        "hint": "Six letters.",
+        "answer": "SCALAR",
+        "explanation": "A scalar subquery returns exactly one row, one column — usable wherever a value is expected.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "sq-13",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "A subquery that depends on the outer query's row is called a ___ subquery.",
+        "hint": "Ten letters.",
+        "answer": "CORRELATED",
+        "explanation": "Correlated subqueries reference outer columns and re-evaluate per outer row.",
+        "schemaTables": ["customer", "rental"]
+      },
+      {
+        "id": "sq-14",
+        "type": "single",
+        "difficulty": "hard",
+        "question": "What is a subquery in the FROM clause commonly called?",
+        "hint": "Two words.",
+        "answer": "DERIVED TABLE",
+        "explanation": "A subquery used in FROM (with an alias) is a derived table or inline view.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "sq-15",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "Find every film whose length equals the maximum film length.",
+        "hint": "Scalar subquery: (SELECT MAX(length) FROM film).",
+        "sql": "SELECT film_id, title, length FROM film WHERE length = (SELECT MAX(length) FROM film);",
+        "explanation": "The scalar subquery returns one value (the longest film length); the outer query filters by it.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "sq-16",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "List customers who have at least one rental.",
+        "hint": "Use IN with a subquery on rental.",
+        "sql": "SELECT customer_id, first_name, last_name FROM customer WHERE customer_id IN (SELECT customer_id FROM rental);",
+        "explanation": "customer_id IN (SELECT customer_id FROM rental) keeps customers that appear at least once in rental.",
+        "schemaTables": ["customer", "rental"]
+      },
+      {
+        "id": "sq-17",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "List customers who have NEVER rented anything. Use NOT EXISTS.",
+        "hint": "Correlated subquery on rental.",
+        "sql": "SELECT c.customer_id, c.first_name, c.last_name FROM customer c WHERE NOT EXISTS (SELECT 1 FROM rental r WHERE r.customer_id = c.customer_id);",
+        "explanation": "NOT EXISTS returns customers for whom no matching rental row exists. NULL-safe alternative to NOT IN.",
+        "schemaTables": ["customer", "rental"]
+      },
+      {
+        "id": "sq-18",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Show each film with a 'longer_than_avg' flag computed via a scalar subquery.",
+        "hint": "CASE WHEN length > (SELECT AVG(length) FROM film).",
+        "sql": "SELECT title, length, CASE WHEN length > (SELECT AVG(length) FROM film) THEN 'YES' ELSE 'NO' END AS longer_than_avg FROM film;",
+        "explanation": "The scalar subquery computes the average once; the CASE compares each film's length to it.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "sq-19",
+        "type": "code",
+        "difficulty": "hard",
+        "question": "For each customer, return their total payment using a correlated subquery in SELECT.",
+        "hint": "(SELECT SUM(amount) FROM payment p WHERE p.customer_id = c.customer_id).",
+        "sql": "SELECT c.customer_id, c.first_name, c.last_name, (SELECT COALESCE(SUM(p.amount), 0) FROM payment p WHERE p.customer_id = c.customer_id) AS total_paid FROM customer c ORDER BY total_paid DESC;",
+        "explanation": "The correlated subquery runs once per customer, summing that customer's payments.",
+        "schemaTables": ["customer", "payment"]
+      },
+      {
+        "id": "sq-20",
+        "type": "code",
+        "difficulty": "hard",
+        "question": "Find the film(s) with the maximum rental_rate within each rating, using a correlated subquery.",
+        "hint": "rental_rate = (SELECT MAX(...) WHERE rating = f.rating).",
+        "sql": "SELECT f.film_id, f.title, f.rating, f.rental_rate FROM film f WHERE f.rental_rate = (SELECT MAX(f2.rental_rate) FROM film f2 WHERE f2.rating = f.rating) ORDER BY f.rating;",
+        "explanation": "The correlated subquery returns the max rental_rate for each rating; the outer query keeps films matching it.",
+        "schemaTables": ["film"]
+      }
+    ]
+  },
+  {
+    "id": "string-date",
+    "title": "String & Date Functions",
+    "description": "Manipulate text with CONCAT, LENGTH, SUBSTRING, UPPER/LOWER, and work with dates using NOW, DATEDIFF, YEAR, MONTH, DATE_ADD.",
+    "icon": "🔤",
+    "questions": [
+      {
+        "id": "sd-01",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which function joins strings together in MySQL?",
+        "hint": "Six letters.",
+        "options": ["JOIN", "CONCAT", "MERGE", "ADD"],
+        "answer": "B",
+        "explanation": "CONCAT(a, b, ...) glues strings together. CONCAT_WS adds a separator.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "sd-02",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which function returns the character length of a string?",
+        "hint": "Six letters.",
+        "options": ["SIZE", "LEN", "LENGTH or CHAR_LENGTH", "COUNT"],
+        "answer": "C",
+        "explanation": "LENGTH returns byte length; CHAR_LENGTH returns character count (safer with multibyte text).",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "sd-03",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which function returns the current date and time?",
+        "hint": "Three letters with parens.",
+        "options": ["TODAY()", "NOW()", "CURRENT()", "SYSTIME()"],
+        "answer": "B",
+        "explanation": "NOW() returns the current date+time. CURDATE() returns only the date.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "sd-04",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which expression extracts the year from rental_date?",
+        "hint": "Single-arg function.",
+        "options": [
+          "YEAR(rental_date)",
+          "TO_YEAR(rental_date)",
+          "EXTRACT(YEAR rental_date)",
+          "DATEPART(year, rental_date)"
+        ],
+        "answer": "A",
+        "explanation": "YEAR(date) extracts the year. EXTRACT(YEAR FROM date) is the ANSI equivalent.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "sd-05",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "What does DATEDIFF(return_date, rental_date) return?",
+        "hint": "Difference in days.",
+        "options": [
+          "Days between the two dates (first minus second)",
+          "Hours between",
+          "Milliseconds",
+          "An error"
+        ],
+        "answer": "A",
+        "explanation": "DATEDIFF returns the difference in days (date1 - date2).",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "sd-06",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which function returns part of a string starting at position?",
+        "hint": "Nine letters.",
+        "options": ["SUBSTR", "SUBSTRING", "MID — all three work in MySQL", "None of these"],
+        "answer": "C",
+        "explanation": "MySQL accepts SUBSTRING, SUBSTR and MID as synonyms.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "sd-07",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "Which expression adds 7 days to today?",
+        "hint": "DATE_ADD or + INTERVAL.",
+        "options": [
+          "NOW() + 7",
+          "DATE_ADD(NOW(), INTERVAL 7 DAY)",
+          "ADD_DAY(NOW(), 7)",
+          "NOW() PLUS 7 DAYS"
+        ],
+        "answer": "B",
+        "explanation": "DATE_ADD(date, INTERVAL n unit) is the canonical way; NOW() + INTERVAL 7 DAY also works.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "sd-08",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "Which function uppercases a string?",
+        "hint": "Five letters.",
+        "options": ["UPPER", "TOUPPER", "UCASE — UPPER and UCASE both work in MySQL", "CAPS"],
+        "answer": "C",
+        "explanation": "MySQL has both UPPER() and UCASE() — synonyms.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "sd-09",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which function lowercases a string in MySQL?",
+        "hint": "Five letters.",
+        "answer": "LOWER",
+        "explanation": "LOWER(text) returns the lowercase version. LCASE is a synonym.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "sd-10",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which MySQL function returns today's date with no time portion?",
+        "hint": "Seven letters with parens.",
+        "answer": "CURDATE",
+        "explanation": "CURDATE() returns the current date (YYYY-MM-DD), no time.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "sd-11",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which function removes leading and trailing spaces from a string?",
+        "hint": "Four letters.",
+        "answer": "TRIM",
+        "explanation": "TRIM(str) removes leading and trailing whitespace by default.",
+        "schemaTables": ["customer"]
+      },
+      {
+        "id": "sd-12",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which function returns the month number from a date?",
+        "hint": "Five letters.",
+        "answer": "MONTH",
+        "explanation": "MONTH(date) returns 1–12.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "sd-13",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which function formats a date according to a pattern?",
+        "hint": "Two words joined with underscore.",
+        "answer": "DATE_FORMAT",
+        "explanation": "DATE_FORMAT(date, '%Y-%m-%d') formats dates using format specifiers.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "sd-14",
+        "type": "single",
+        "difficulty": "hard",
+        "question": "Which function returns position of one string inside another?",
+        "hint": "Six letters.",
+        "answer": "LOCATE",
+        "explanation": "LOCATE(substr, str) returns the 1-based position, or 0 if not found. INSTR is an alternative.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "sd-15",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "Build a full_name column for every actor: 'FIRST LAST'.",
+        "hint": "Use CONCAT.",
+        "sql": "SELECT actor_id, CONCAT(first_name, ' ', last_name) AS full_name FROM actor;",
+        "explanation": "CONCAT joins the strings with a literal space in between.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "sd-16",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "Return film title and its character length for every film.",
+        "hint": "CHAR_LENGTH(title).",
+        "sql": "SELECT title, CHAR_LENGTH(title) AS title_length FROM film;",
+        "explanation": "CHAR_LENGTH returns the number of characters in the title.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "sd-17",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "For each rental, compute the number of days the film was kept (NULL if not yet returned).",
+        "hint": "DATEDIFF(return_date, rental_date).",
+        "sql": "SELECT rental_id, DATEDIFF(return_date, rental_date) AS days_kept FROM rental;",
+        "explanation": "DATEDIFF returns the day delta. NULL minus anything is NULL.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "sd-18",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Find rentals whose rental_date falls in July 2005.",
+        "hint": "Use YEAR and MONTH or BETWEEN.",
+        "sql": "SELECT rental_id, rental_date FROM rental WHERE YEAR(rental_date) = 2005 AND MONTH(rental_date) = 7;",
+        "explanation": "YEAR()/MONTH() extract parts of the date. BETWEEN '2005-07-01' AND '2005-07-31 23:59:59' is faster on big tables.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "sd-19",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Return each customer's email in lowercase along with a masked version (first 3 chars + '***').",
+        "hint": "LOWER and SUBSTRING + CONCAT.",
+        "sql": "SELECT customer_id, LOWER(email) AS email_lc, CONCAT(SUBSTRING(email, 1, 3), '***') AS masked FROM customer;",
+        "explanation": "LOWER lowercases; SUBSTRING(str, start, length) extracts characters; CONCAT appends '***'.",
+        "schemaTables": ["customer"]
+      },
+      {
+        "id": "sd-20",
+        "type": "code",
+        "difficulty": "hard",
+        "question": "Compute the expected return date as rental_date + film.rental_duration days.",
+        "hint": "Join film and use DATE_ADD with INTERVAL.",
+        "sql": "SELECT r.rental_id, r.rental_date, f.rental_duration, DATE_ADD(r.rental_date, INTERVAL f.rental_duration DAY) AS expected_return FROM rental r INNER JOIN inventory i ON r.inventory_id = i.inventory_id INNER JOIN film f ON i.film_id = f.film_id;",
+        "explanation": "rental → inventory → film gives access to rental_duration; DATE_ADD adds that many days to rental_date.",
+        "schemaTables": ["rental", "inventory", "film"]
+      }
+    ]
+  },
+  {
+    "id": "crud",
+    "title": "CRUD Operations",
+    "description": "INSERT, UPDATE and DELETE rows responsibly — always with a WHERE clause when not bulk-changing.",
+    "icon": "✏️",
+    "questions": [
+      {
+        "id": "cr-01",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which statement adds a new row?",
+        "hint": "Six letters.",
+        "options": ["ADD", "INSERT", "CREATE ROW", "PUT"],
+        "answer": "B",
+        "explanation": "INSERT INTO table (cols) VALUES (...) adds a new row.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "cr-02",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which statement modifies existing rows?",
+        "hint": "Six letters.",
+        "options": ["MODIFY", "UPDATE", "CHANGE", "ALTER"],
+        "answer": "B",
+        "explanation": "UPDATE table SET col = val WHERE ...; modifies matching rows.",
+        "schemaTables": ["customer"]
+      },
+      {
+        "id": "cr-03",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which statement removes rows from a table?",
+        "hint": "Six letters.",
+        "options": ["REMOVE", "DELETE", "DROP", "ERASE"],
+        "answer": "B",
+        "explanation": "DELETE FROM table WHERE ...; removes rows. DROP removes the whole table.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "cr-04",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "What happens if you run UPDATE film SET rental_rate = 1.99; (no WHERE)?",
+        "hint": "Affects all rows.",
+        "options": [
+          "Only the first row updates",
+          "Every row in film is updated",
+          "An error",
+          "Only rows where rental_rate is NULL update"
+        ],
+        "answer": "B",
+        "explanation": "An UPDATE without WHERE applies to every row. Always include WHERE unless you really mean 'all rows'.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "cr-05",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which form of INSERT lets you insert from a SELECT?",
+        "hint": "Two keywords.",
+        "options": [
+          "INSERT ... SELECT",
+          "INSERT FROM",
+          "COPY FROM SELECT",
+          "BULK INSERT"
+        ],
+        "answer": "A",
+        "explanation": "INSERT INTO target (cols) SELECT ... FROM source copies rows from one table into another.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "cr-06",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which statement empties a table fastest but cannot be filtered?",
+        "hint": "Eight letters.",
+        "options": ["DELETE", "TRUNCATE", "PURGE", "RESET"],
+        "answer": "B",
+        "explanation": "TRUNCATE TABLE empties the table quickly and resets AUTO_INCREMENT, but accepts no WHERE.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "cr-07",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "Which clause helps you handle duplicate keys during INSERT in MySQL?",
+        "hint": "Three words.",
+        "options": [
+          "ON CONFLICT REPLACE",
+          "ON DUPLICATE KEY UPDATE",
+          "INSERT OR REPLACE",
+          "USING DUPLICATE"
+        ],
+        "answer": "B",
+        "explanation": "INSERT ... ON DUPLICATE KEY UPDATE col = val updates the existing row when a unique key collides.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "cr-08",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "What does the RETURNING clause do (not supported in MySQL but standard in PostgreSQL)?",
+        "hint": "Returns changed rows.",
+        "options": [
+          "Returns the rows that were modified",
+          "Reverses the change",
+          "Returns row count only",
+          "Returns NULL"
+        ],
+        "answer": "A",
+        "explanation": "RETURNING outputs modified rows back to the client. MySQL doesn't support it; you need a separate SELECT.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "cr-09",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which clause must you almost always include on UPDATE/DELETE for safety?",
+        "hint": "Five letters.",
+        "answer": "WHERE",
+        "explanation": "WHERE limits the rows affected. Without it, the statement applies to every row.",
+        "schemaTables": ["customer"]
+      },
+      {
+        "id": "cr-10",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which keyword starts an INSERT statement?",
+        "hint": "Six letters.",
+        "answer": "INSERT",
+        "explanation": "INSERT INTO ... VALUES (...) is the standard insert.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "cr-11",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which keyword introduces the new values in an UPDATE statement?",
+        "hint": "Three letters.",
+        "answer": "SET",
+        "explanation": "UPDATE table SET col1 = v1, col2 = v2 WHERE ...; SET lists the column assignments.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "cr-12",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which statement removes ALL rows quickly without firing per-row triggers?",
+        "hint": "Eight letters.",
+        "answer": "TRUNCATE",
+        "explanation": "TRUNCATE empties the table fast but cannot be filtered and (in MySQL) resets AUTO_INCREMENT.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "cr-13",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which statement is used to roll back an open transaction?",
+        "hint": "Eight letters.",
+        "answer": "ROLLBACK",
+        "explanation": "ROLLBACK undoes everything in the current transaction. COMMIT makes it permanent.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "cr-14",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which statement makes changes in a transaction permanent?",
+        "hint": "Six letters.",
+        "answer": "COMMIT",
+        "explanation": "COMMIT writes all pending changes in the current transaction to disk.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "cr-15",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "Insert a new actor named 'JANE DOE'. Let actor_id auto-increment, set last_update to NOW().",
+        "hint": "INSERT INTO actor (first_name, last_name, last_update) VALUES (...).",
+        "sql": "INSERT INTO actor (first_name, last_name, last_update) VALUES ('JANE', 'DOE', NOW());",
+        "explanation": "Skip actor_id (AUTO_INCREMENT will assign it). last_update is non-null; pass NOW().",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "cr-16",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "Change the email of customer_id = 1 to 'mary.smith@example.com'.",
+        "hint": "UPDATE customer SET email = ... WHERE customer_id = 1;",
+        "sql": "UPDATE customer SET email = 'mary.smith@example.com', last_update = NOW() WHERE customer_id = 1;",
+        "explanation": "Always include WHERE customer_id = 1 — without it you'd rewrite every customer.",
+        "schemaTables": ["customer"]
+      },
+      {
+        "id": "cr-17",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Delete rental row rental_id = 99999 only if it is unreturned (return_date IS NULL).",
+        "hint": "DELETE ... WHERE rental_id = 99999 AND return_date IS NULL;",
+        "sql": "DELETE FROM rental WHERE rental_id = 99999 AND return_date IS NULL;",
+        "explanation": "Combine the id filter with the return_date check so you can't accidentally delete a returned rental.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "cr-18",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Increase rental_rate by 0.50 for every PG-13 film.",
+        "hint": "UPDATE film SET rental_rate = rental_rate + 0.50 WHERE rating = 'PG-13';",
+        "sql": "UPDATE film SET rental_rate = rental_rate + 0.50, last_update = NOW() WHERE rating = 'PG-13';",
+        "explanation": "Reading and writing the same column in SET is allowed; the original value is used as input.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "cr-19",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Insert into a backup table actor_archive everything from actor with actor_id < 10. Assume actor_archive already exists with the same columns.",
+        "hint": "INSERT INTO ... SELECT.",
+        "sql": "INSERT INTO actor_archive (actor_id, first_name, last_name, last_update) SELECT actor_id, first_name, last_name, last_update FROM actor WHERE actor_id < 10;",
+        "explanation": "INSERT ... SELECT copies rows from one table to another, matching the column lists by position.",
+        "schemaTables": ["actor"]
+      },
+      {
+        "id": "cr-20",
+        "type": "code",
+        "difficulty": "hard",
+        "question": "Within a transaction, deduct $5 from customer 1's next unpaid payment row (amount becomes amount - 5). Use START TRANSACTION and COMMIT.",
+        "hint": "Wrap the UPDATE in START TRANSACTION; ... COMMIT;",
+        "sql": "START TRANSACTION;\nUPDATE payment SET amount = amount - 5 WHERE payment_id = (SELECT payment_id FROM (SELECT payment_id FROM payment WHERE customer_id = 1 ORDER BY payment_date ASC LIMIT 1) AS t);\nCOMMIT;",
+        "explanation": "Wrap the change in START TRANSACTION/COMMIT so it can be rolled back. The inner derived table avoids MySQL's 'update target = subquery target' error.",
+        "schemaTables": ["payment"]
+      }
+    ]
+  },
+  {
+    "id": "indexes",
+    "title": "Indexes & Performance",
+    "description": "Speed up queries with indexes, read EXPLAIN plans, and avoid common slow patterns.",
+    "icon": "⚡",
+    "questions": [
+      {
+        "id": "ix-01",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "What does an index primarily improve?",
+        "hint": "Lookup time.",
+        "options": [
+          "INSERT speed",
+          "Disk usage",
+          "SELECT/lookup speed on indexed columns",
+          "Code readability"
+        ],
+        "answer": "C",
+        "explanation": "Indexes speed up SELECTs (and joins) on the indexed columns at the cost of slower writes and more disk space.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ix-02",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which keyword shows the query plan in MySQL?",
+        "hint": "Seven letters.",
+        "options": ["DESCRIBE", "EXPLAIN", "ANALYZE", "PLAN"],
+        "answer": "B",
+        "explanation": "Prefix any SELECT with EXPLAIN to see how MySQL plans to execute it.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ix-03",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which is created automatically on a PRIMARY KEY column?",
+        "hint": "It's an index.",
+        "options": [
+          "A view",
+          "A unique clustered index",
+          "A trigger",
+          "Nothing"
+        ],
+        "answer": "B",
+        "explanation": "In InnoDB the PRIMARY KEY is also the clustered index — rows are physically ordered by it.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ix-04",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which common pattern usually prevents an index from being used?",
+        "hint": "Wrapping the column in a function.",
+        "options": [
+          "WHERE last_name = 'SMITH'",
+          "WHERE UPPER(last_name) = 'SMITH'",
+          "WHERE last_name IN ('SMITH','JONES')",
+          "WHERE last_name LIKE 'S%'"
+        ],
+        "answer": "B",
+        "explanation": "Wrapping the indexed column in a function (UPPER, DATE, etc.) makes the index unusable unless you have a functional/computed index.",
+        "schemaTables": ["customer"]
+      },
+      {
+        "id": "ix-05",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "A composite index on (a, b, c) helps queries that filter by:",
+        "hint": "Leftmost prefix rule.",
+        "options": [
+          "Only column b",
+          "Only column c",
+          "a; a+b; a+b+c (leftmost prefix)",
+          "Any combination"
+        ],
+        "answer": "C",
+        "explanation": "MySQL can use a composite index only for the leftmost prefix — (a), (a,b), (a,b,c).",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "ix-06",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which LIKE pattern can still use a B-tree index?",
+        "hint": "Anchor at the start.",
+        "options": [
+          "LIKE '%STAR%'",
+          "LIKE '%STAR'",
+          "LIKE 'STAR%'",
+          "All of them"
+        ],
+        "answer": "C",
+        "explanation": "Only patterns anchored on the left (no leading %) can use a B-tree index.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ix-07",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "What does 'covering index' mean?",
+        "hint": "Reads no table data.",
+        "options": [
+          "An index that covers every column in the table",
+          "An index containing all columns needed by the query so no table lookup is required",
+          "An index over a view",
+          "A fulltext index"
+        ],
+        "answer": "B",
+        "explanation": "If an index includes all columns referenced by the query, MySQL can answer from the index alone (covering index).",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ix-08",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "Which is a downside of adding indexes?",
+        "hint": "Trade-off.",
+        "options": [
+          "Slower SELECTs",
+          "Slower INSERT/UPDATE/DELETE and more disk usage",
+          "Loss of data",
+          "Queries return wrong results"
+        ],
+        "answer": "B",
+        "explanation": "Indexes must be maintained on every write, so writes get slower and disk usage grows.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ix-09",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which keyword creates a new index?",
+        "hint": "Two words.",
+        "answer": "CREATE INDEX",
+        "explanation": "CREATE INDEX idx_name ON table(column);",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ix-10",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which keyword shows the execution plan?",
+        "hint": "Seven letters.",
+        "answer": "EXPLAIN",
+        "explanation": "EXPLAIN SELECT ...; shows how MySQL will execute the query, including index usage.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ix-11",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "What's the term for an index that contains every column needed to answer a query?",
+        "hint": "Eight letters.",
+        "answer": "COVERING",
+        "explanation": "A covering index lets MySQL skip reading the row data — the index alone is enough.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ix-12",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which keyword removes an index?",
+        "hint": "Two words.",
+        "answer": "DROP INDEX",
+        "explanation": "DROP INDEX idx_name ON table; deletes the index.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ix-13",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which special index in MySQL supports natural-language text search?",
+        "hint": "Eight letters.",
+        "answer": "FULLTEXT",
+        "explanation": "FULLTEXT indexes support MATCH ... AGAINST queries for natural-language search.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ix-14",
+        "type": "single",
+        "difficulty": "hard",
+        "question": "Which EXPLAIN 'type' value usually indicates a full table scan?",
+        "hint": "Three letters.",
+        "answer": "ALL",
+        "explanation": "type=ALL in EXPLAIN means a full table scan — typically the slowest plan.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ix-15",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "Create a non-unique index named idx_customer_last_name on customer(last_name).",
+        "hint": "CREATE INDEX ... ON ...;",
+        "sql": "CREATE INDEX idx_customer_last_name ON customer(last_name);",
+        "explanation": "Indexing last_name speeds WHERE last_name = '...' and ORDER BY last_name queries.",
+        "schemaTables": ["customer"]
+      },
+      {
+        "id": "ix-16",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "Inspect the query plan for: SELECT * FROM film WHERE title = 'STAR WARS';",
+        "hint": "Prefix with EXPLAIN.",
+        "sql": "EXPLAIN SELECT * FROM film WHERE title = 'STAR WARS';",
+        "explanation": "EXPLAIN shows which indexes are considered/used and the estimated row count.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "ix-17",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Create a composite index on payment(customer_id, payment_date).",
+        "hint": "List both columns inside the parentheses.",
+        "sql": "CREATE INDEX idx_payment_customer_date ON payment(customer_id, payment_date);",
+        "explanation": "Composite index supports WHERE customer_id = ? and WHERE customer_id = ? AND payment_date BETWEEN ... .",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "ix-18",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Drop the index idx_customer_last_name from customer.",
+        "hint": "DROP INDEX ... ON ...;",
+        "sql": "DROP INDEX idx_customer_last_name ON customer;",
+        "explanation": "Removes the index. The table data is unaffected.",
+        "schemaTables": ["customer"]
+      },
+      {
+        "id": "ix-19",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Rewrite this slow query to be index-friendly: SELECT * FROM customer WHERE UPPER(last_name) = 'SMITH'.",
+        "hint": "Drop the function; use the case-insensitive default collation.",
+        "sql": "SELECT * FROM customer WHERE last_name = 'SMITH';",
+        "explanation": "MySQL's default collation is case-insensitive, so UPPER() is unnecessary and prevents using an index on last_name.",
+        "schemaTables": ["customer"]
+      },
+      {
+        "id": "ix-20",
+        "type": "code",
+        "difficulty": "hard",
+        "question": "Create a covering index for the query SELECT customer_id, payment_date FROM payment WHERE customer_id = 5 ORDER BY payment_date.",
+        "hint": "Index on (customer_id, payment_date) covers the query.",
+        "sql": "CREATE INDEX idx_payment_cover ON payment(customer_id, payment_date);",
+        "explanation": "Both selected columns sit in the index, so MySQL can answer from the index without reading the table.",
+        "schemaTables": ["payment"]
+      }
+    ]
+  },
+  {
+    "id": "views-ctes",
+    "title": "Views & CTEs",
+    "description": "Build reusable queries with CREATE VIEW and the WITH (CTE) clause.",
+    "icon": "🪞",
+    "questions": [
+      {
+        "id": "vc-01",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "A VIEW is best described as:",
+        "hint": "Stored query.",
+        "options": [
+          "A copy of a table",
+          "A named, stored SELECT query you can query like a table",
+          "A trigger",
+          "A subset of an index"
+        ],
+        "answer": "B",
+        "explanation": "A view is a stored SELECT. Querying the view runs the underlying SELECT.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "vc-02",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which keyword starts a Common Table Expression?",
+        "hint": "Four letters.",
+        "options": ["WITH", "BEGIN", "LET", "USE"],
+        "answer": "A",
+        "explanation": "WITH name AS (SELECT ...) SELECT ... FROM name; defines a CTE for the following query.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "vc-03",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which DDL creates a view?",
+        "hint": "Two words.",
+        "options": ["MAKE VIEW", "CREATE VIEW", "BUILD VIEW", "DEFINE VIEW"],
+        "answer": "B",
+        "explanation": "CREATE VIEW name AS SELECT ...;",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "vc-04",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which is TRUE about CTEs?",
+        "hint": "Scope is the immediate query.",
+        "options": [
+          "They persist between queries",
+          "They are only visible to the statement that defined them",
+          "They cannot be recursive",
+          "They are always materialised"
+        ],
+        "answer": "B",
+        "explanation": "A CTE lives for one statement only; views persist in the catalog until dropped.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "vc-05",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which keyword introduces a recursive CTE?",
+        "hint": "Goes between WITH and the name.",
+        "options": ["LOOP", "RECURSIVE", "CYCLE", "REPEAT"],
+        "answer": "B",
+        "explanation": "WITH RECURSIVE name AS (anchor UNION ALL recursive_step) ... enables recursion.",
+        "schemaTables": ["category"]
+      },
+      {
+        "id": "vc-06",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Can you UPDATE through a simple view in MySQL?",
+        "hint": "If the view is updatable.",
+        "options": [
+          "Never",
+          "Only if the view is built on a single table without aggregates/DISTINCT/GROUP BY",
+          "Always",
+          "Only with TRIGGERS"
+        ],
+        "answer": "B",
+        "explanation": "Updatable views must map cleanly back to underlying rows: single table, no aggregation, etc.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "vc-07",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "Which is a benefit of a view?",
+        "hint": "Abstraction.",
+        "options": [
+          "Hides complex joins behind a simple name",
+          "Always faster than the underlying query",
+          "Stores its own data permanently",
+          "Replaces indexes"
+        ],
+        "answer": "A",
+        "explanation": "Views encapsulate complex SQL and can restrict columns/rows for security. They don't store data (unless materialised, not in MySQL).",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "vc-08",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "Which is TRUE about CTEs vs subqueries in MySQL 8?",
+        "hint": "Both are scoped to one query.",
+        "options": [
+          "CTEs always materialise; subqueries never do",
+          "CTEs can be named and referenced multiple times in the same statement",
+          "CTEs are slower",
+          "Subqueries support recursion"
+        ],
+        "answer": "B",
+        "explanation": "CTEs improve readability and can be referenced multiple times within the same SQL statement.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "vc-09",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which keyword introduces a CTE?",
+        "hint": "Four letters.",
+        "answer": "WITH",
+        "explanation": "WITH cte_name AS (...) defines a named CTE.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "vc-10",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which statement removes a view?",
+        "hint": "Two words.",
+        "answer": "DROP VIEW",
+        "explanation": "DROP VIEW view_name; removes the view definition.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "vc-11",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which combination keyword replaces a view if it already exists?",
+        "hint": "Three words.",
+        "answer": "CREATE OR REPLACE",
+        "explanation": "CREATE OR REPLACE VIEW v AS SELECT ...; drops and recreates the view atomically.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "vc-12",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which keyword (after WITH) introduces a recursive CTE?",
+        "hint": "Nine letters.",
+        "answer": "RECURSIVE",
+        "explanation": "WITH RECURSIVE allows the CTE to reference itself in the UNION ALL step.",
+        "schemaTables": ["category"]
+      },
+      {
+        "id": "vc-13",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which operator combines the anchor and recursive members of a recursive CTE?",
+        "hint": "Two words.",
+        "answer": "UNION ALL",
+        "explanation": "UNION ALL stacks the anchor with the iterative step. The recursion stops when the step returns no rows.",
+        "schemaTables": ["category"]
+      },
+      {
+        "id": "vc-14",
+        "type": "single",
+        "difficulty": "hard",
+        "question": "What's the term for a view that physically stores its results (not supported natively in MySQL)?",
+        "hint": "Eleven letters.",
+        "answer": "MATERIALIZED",
+        "explanation": "Materialised views store query results on disk. MySQL has no built-in support; emulate with summary tables.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "vc-15",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "Create a view called v_long_films that lists film_id, title and length for films longer than 120 minutes.",
+        "hint": "CREATE VIEW ... AS SELECT ...",
+        "sql": "CREATE VIEW v_long_films AS SELECT film_id, title, length FROM film WHERE length > 120;",
+        "explanation": "The view is just a stored SELECT. Query it like a table: SELECT * FROM v_long_films;.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "vc-16",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "Use a CTE called recent_rentals to list rentals from the last 30 days, then SELECT all of them.",
+        "hint": "WITH recent_rentals AS (SELECT ... WHERE rental_date >= DATE_SUB(NOW(), INTERVAL 30 DAY)) SELECT ...",
+        "sql": "WITH recent_rentals AS (SELECT * FROM rental WHERE rental_date >= DATE_SUB(NOW(), INTERVAL 30 DAY)) SELECT * FROM recent_rentals;",
+        "explanation": "The CTE encapsulates the filter; the main query reads from it.",
+        "schemaTables": ["rental"]
+      },
+      {
+        "id": "vc-17",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Create a view v_customer_total_spend showing customer_id, full_name and SUM(amount).",
+        "hint": "Join customer + payment, GROUP BY customer.",
+        "sql": "CREATE VIEW v_customer_total_spend AS SELECT c.customer_id, CONCAT(c.first_name, ' ', c.last_name) AS full_name, COALESCE(SUM(p.amount), 0) AS total_spend FROM customer c LEFT JOIN payment p ON c.customer_id = p.customer_id GROUP BY c.customer_id, c.first_name, c.last_name;",
+        "explanation": "LEFT JOIN keeps customers with no payments; COALESCE replaces NULL with 0; GROUP BY makes the totals per customer.",
+        "schemaTables": ["customer", "payment"]
+      },
+      {
+        "id": "vc-18",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Replace v_long_films so it includes rating as well.",
+        "hint": "CREATE OR REPLACE VIEW.",
+        "sql": "CREATE OR REPLACE VIEW v_long_films AS SELECT film_id, title, length, rating FROM film WHERE length > 120;",
+        "explanation": "CREATE OR REPLACE updates the view definition without an explicit DROP.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "vc-19",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Use two CTEs: one for revenue per film, one for top-10 films. Return film_id, title, total_revenue for the top-10 films by revenue.",
+        "hint": "Chain two CTEs in one WITH clause.",
+        "sql": "WITH film_revenue AS (\n  SELECT i.film_id, SUM(p.amount) AS total_revenue\n  FROM payment p\n  INNER JOIN rental r ON p.rental_id = r.rental_id\n  INNER JOIN inventory i ON r.inventory_id = i.inventory_id\n  GROUP BY i.film_id\n),\ntop_films AS (\n  SELECT film_id, total_revenue FROM film_revenue ORDER BY total_revenue DESC LIMIT 10\n)\nSELECT f.film_id, f.title, t.total_revenue\nFROM top_films t\nINNER JOIN film f ON f.film_id = t.film_id\nORDER BY t.total_revenue DESC;",
+        "explanation": "Two CTEs separated by commas: film_revenue computes per-film revenue, top_films picks the top 10. The final SELECT joins to film for the title.",
+        "schemaTables": ["payment", "rental", "inventory", "film"]
+      },
+      {
+        "id": "vc-20",
+        "type": "code",
+        "difficulty": "hard",
+        "question": "Use a recursive CTE to generate a sequence of numbers from 1 to 10.",
+        "hint": "WITH RECURSIVE nums(n) AS (SELECT 1 UNION ALL SELECT n+1 FROM nums WHERE n < 10).",
+        "sql": "WITH RECURSIVE nums(n) AS (\n  SELECT 1\n  UNION ALL\n  SELECT n + 1 FROM nums WHERE n < 10\n)\nSELECT n FROM nums;",
+        "explanation": "Anchor row is 1; each recursive step adds 1 until n reaches 10, producing 1..10.",
+        "schemaTables": []
+      }
+    ]
+  },
+  {
+    "id": "window-functions",
+    "title": "Window Functions",
+    "description": "Rank, number and look across rows with ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD and PARTITION BY.",
+    "icon": "🪟",
+    "questions": [
+      {
+        "id": "wf-01",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Window functions are introduced by which clause?",
+        "hint": "Four letters.",
+        "options": ["WITH", "OVER", "PART", "WIN"],
+        "answer": "B",
+        "explanation": "All window functions take an OVER (...) clause defining the window frame.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "wf-02",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "Which function assigns a unique sequential number per row in the window?",
+        "hint": "Three words.",
+        "options": ["RANK", "ROW_NUMBER", "DENSE_RANK", "NTILE"],
+        "answer": "B",
+        "explanation": "ROW_NUMBER() OVER (...) numbers rows 1,2,3,... within each partition. Always unique.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "wf-03",
+        "type": "mcq",
+        "difficulty": "easy",
+        "question": "What does PARTITION BY do inside OVER(...)?",
+        "hint": "Resets the window.",
+        "options": [
+          "Sorts rows",
+          "Resets the window function per group",
+          "Filters rows",
+          "Joins tables"
+        ],
+        "answer": "B",
+        "explanation": "PARTITION BY divides the rows into groups; window functions start over per partition.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "wf-04",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "How do RANK and DENSE_RANK differ on ties?",
+        "hint": "DENSE_RANK has no gaps.",
+        "options": [
+          "They are identical",
+          "RANK skips numbers after ties; DENSE_RANK does not",
+          "DENSE_RANK skips numbers after ties; RANK does not",
+          "RANK shuffles tied rows randomly"
+        ],
+        "answer": "B",
+        "explanation": "After two rows tied at rank 1, RANK gives the next row 3 (skipping 2); DENSE_RANK gives 2.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "wf-05",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which function returns the value of a column from the previous row in the partition?",
+        "hint": "Three letters.",
+        "options": ["PREV", "LAG", "BEFORE", "PRIOR"],
+        "answer": "B",
+        "explanation": "LAG(col, n) returns the value from n rows before the current row, within the ordered partition.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "wf-06",
+        "type": "mcq",
+        "difficulty": "medium",
+        "question": "Which function returns the value from the next row?",
+        "hint": "Four letters.",
+        "options": ["NEXT", "LEAD", "AFTER", "FORWARD"],
+        "answer": "B",
+        "explanation": "LEAD(col, n) is the mirror of LAG, returning the value from n rows after the current row.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "wf-07",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "Which clause inside OVER (...) controls the order rows are processed by the window function?",
+        "hint": "Two words.",
+        "options": [
+          "GROUP BY",
+          "ORDER BY",
+          "WITHIN",
+          "SORT BY"
+        ],
+        "answer": "B",
+        "explanation": "ORDER BY inside OVER tells the window function the order of rows; vital for RANK/ROW_NUMBER/LAG/LEAD.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "wf-08",
+        "type": "mcq",
+        "difficulty": "hard",
+        "question": "Which is TRUE about window functions vs GROUP BY aggregates?",
+        "hint": "Windows keep all rows.",
+        "options": [
+          "Both collapse rows the same way",
+          "Window functions keep every row and add a computed value; GROUP BY collapses rows",
+          "Window functions cannot be combined with ORDER BY",
+          "GROUP BY supports PARTITION BY"
+        ],
+        "answer": "B",
+        "explanation": "Window functions don't collapse rows — they compute per-row values based on a window of surrounding rows.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "wf-09",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which keyword introduces the window definition?",
+        "hint": "Four letters.",
+        "answer": "OVER",
+        "explanation": "Every window function uses OVER (...) to define its window.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "wf-10",
+        "type": "single",
+        "difficulty": "easy",
+        "question": "Which window function returns a strictly sequential 1,2,3 numbering within each partition?",
+        "hint": "Two words joined by underscore.",
+        "answer": "ROW_NUMBER",
+        "explanation": "ROW_NUMBER() is unique and continuous per partition.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "wf-11",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which window function gives the same rank to ties and skips numbers after ties?",
+        "hint": "Four letters.",
+        "answer": "RANK",
+        "explanation": "RANK leaves gaps after ties (1,1,3,...).",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "wf-12",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which window function gives the same rank to ties but does NOT skip numbers?",
+        "hint": "Two words joined by underscore.",
+        "answer": "DENSE_RANK",
+        "explanation": "DENSE_RANK assigns 1,1,2,... — no gaps after ties.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "wf-13",
+        "type": "single",
+        "difficulty": "medium",
+        "question": "Which clause inside OVER groups rows so the window restarts per group?",
+        "hint": "Two words.",
+        "answer": "PARTITION BY",
+        "explanation": "PARTITION BY splits the rowset into groups; window logic resets per partition.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "wf-14",
+        "type": "single",
+        "difficulty": "hard",
+        "question": "Which window function splits rows into N approximately equal buckets?",
+        "hint": "Five letters.",
+        "answer": "NTILE",
+        "explanation": "NTILE(N) over an ordered window assigns each row to one of N buckets — useful for quartiles/deciles.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "wf-15",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "List films and their length, plus a row number ordered by length descending.",
+        "hint": "ROW_NUMBER() OVER (ORDER BY length DESC).",
+        "sql": "SELECT title, length, ROW_NUMBER() OVER (ORDER BY length DESC) AS rn FROM film;",
+        "explanation": "ROW_NUMBER() numbers each row 1..N in descending length order.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "wf-16",
+        "type": "code",
+        "difficulty": "easy",
+        "question": "For each rating, rank films by length descending. Show title, rating, length and rank.",
+        "hint": "Use RANK() OVER (PARTITION BY rating ORDER BY length DESC).",
+        "sql": "SELECT title, rating, length, RANK() OVER (PARTITION BY rating ORDER BY length DESC) AS length_rank FROM film;",
+        "explanation": "PARTITION BY rating restarts ranking per rating; ORDER BY length DESC ranks longest first.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "wf-17",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "For each customer, list their payments with a running total of amount over time.",
+        "hint": "SUM(amount) OVER (PARTITION BY customer_id ORDER BY payment_date).",
+        "sql": "SELECT customer_id, payment_date, amount, SUM(amount) OVER (PARTITION BY customer_id ORDER BY payment_date) AS running_total FROM payment;",
+        "explanation": "SUM with PARTITION BY + ORDER BY computes a cumulative sum per customer over time.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "wf-18",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "Show each payment with the previous payment amount for the same customer.",
+        "hint": "LAG(amount) OVER (PARTITION BY customer_id ORDER BY payment_date).",
+        "sql": "SELECT customer_id, payment_date, amount, LAG(amount) OVER (PARTITION BY customer_id ORDER BY payment_date) AS prev_amount FROM payment;",
+        "explanation": "LAG returns the previous row's amount within the same customer's ordered payments.",
+        "schemaTables": ["payment"]
+      },
+      {
+        "id": "wf-19",
+        "type": "code",
+        "difficulty": "medium",
+        "question": "For each rating, return the top 3 longest films using DENSE_RANK.",
+        "hint": "Wrap in a CTE and filter by rank <= 3.",
+        "sql": "WITH ranked AS (\n  SELECT title, rating, length, DENSE_RANK() OVER (PARTITION BY rating ORDER BY length DESC) AS rnk\n  FROM film\n)\nSELECT title, rating, length, rnk FROM ranked WHERE rnk <= 3 ORDER BY rating, rnk;",
+        "explanation": "DENSE_RANK in a CTE produces a per-rating rank; the outer query keeps only ranks 1..3.",
+        "schemaTables": ["film"]
+      },
+      {
+        "id": "wf-20",
+        "type": "code",
+        "difficulty": "hard",
+        "question": "For each payment, show amount, the previous amount, and the difference (current - previous) per customer.",
+        "hint": "Use LAG and subtract.",
+        "sql": "SELECT customer_id, payment_date, amount, LAG(amount) OVER (PARTITION BY customer_id ORDER BY payment_date) AS prev_amount, amount - LAG(amount) OVER (PARTITION BY customer_id ORDER BY payment_date) AS diff FROM payment ORDER BY customer_id, payment_date;",
+        "explanation": "LAG fetches the previous payment per customer; subtract from the current amount for the delta. The first row per customer has NULL.",
+        "schemaTables": ["payment"]
+      }
+    ]
+  }
+]

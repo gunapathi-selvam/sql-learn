@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  @apply bg-white text-slate-900 antialiased;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html.dark body {
+  @apply bg-slate-950 text-slate-100;
+}
+
+/* SQL syntax colors — work in both themes */
+.sql-kw  { color: #c084fc; font-weight: 600; }
+.sql-fn  { color: #60a5fa; }
+.sql-str { color: #34d399; }
+.sql-num { color: #fbbf24; }
+.sql-com { color: #94a3b8; font-style: italic; }
+
+html:not(.dark) .sql-kw  { color: #7c3aed; }
+html:not(.dark) .sql-fn  { color: #1d4ed8; }
+html:not(.dark) .sql-str { color: #047857; }
+html:not(.dark) .sql-num { color: #b45309; }
+html:not(.dark) .sql-com { color: #64748b; }
+
+/* Scrollbars */
+.code-scroll::-webkit-scrollbar { height: 8px; width: 8px; }
+.code-scroll::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.4); border-radius: 4px; }
+.code-scroll::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.6); }
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: white !important; color: black !important; }
+  .print-card { break-inside: avoid; }
+}

@@ -7,7 +7,17 @@
       "PowerShell(py -m pip --version)",
       "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\New folder\\\\dash\\\\portfolio\")",
       "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\New folder\\\\dash\\\\portfolio\\\\assets\")",
-      "PowerShell(Start-Process \"c:\\\\New folder\\\\dash\\\\portfolio\\\\index.html\")"
+      "PowerShell(Start-Process \"c:\\\\New folder\\\\dash\\\\portfolio\\\\index.html\")",
+      "Bash(mkdir -p \"c:/New folder/dash/sqlladder/src/app\" \"c:/New folder/dash/sqlladder/src/app/topics/[slug]\" \"c:/New folder/dash/sqlladder/src/app/answers\" \"c:/New folder/dash/sqlladder/src/app/add\" \"c:/New folder/dash/sqlladder/src/components\" \"c:/New folder/dash/sqlladder/src/data\" \"c:/New folder/dash/sqlladder/src/lib\" \"c:/New folder/dash/sqlladder/public\")",
+      "Bash(node -e \"const d=require\\('c:/New folder/dash/sqlladder/src/data/questions.json'\\); console.log\\('topics:', d.length\\); d.forEach\\(t=>console.log\\(t.id, t.questions.length, 'mcq:', t.questions.filter\\(q=>q.type==='mcq'\\).length, 'single:', t.questions.filter\\(q=>q.type==='single'\\).length, 'code:', t.questions.filter\\(q=>q.type==='code'\\).length\\)\\); console.log\\('TOTAL:', d.reduce\\(\\(s,t\\)=>s+t.questions.length,0\\)\\);\")",
+      "PowerShell($d = Get-Content 'c:\\\\New folder\\\\dash\\\\sqlladder\\\\src\\\\data\\\\questions.json' -Raw | ConvertFrom-Json; \"topics: $\\($d.Count\\)\"; foreach \\($t in $d\\) { $mcq=\\($t.questions | Where-Object {$_.type -eq 'mcq'}\\).Count; $sing=\\($t.questions | Where-Object {$_.type -eq 'single'}\\).Count; $code=\\($t.questions | Where-Object {$_.type -eq 'code'}\\).Count; \"$\\($t.id\\): $\\($t.questions.Count\\) \\(mcq=$mcq single=$sing code=$code\\)\" }; $total = \\($d | ForEach-Object { $_.questions.Count } | Measure-Object -Sum\\).Sum; \"TOTAL: $total\")",
+      "PowerShell($candidates = @\\(\\); foreach \\($p in @\\('C:\\\\Program Files\\\\nodejs\\\\npm.cmd','C:\\\\Program Files \\(x86\\)\\\\nodejs\\\\npm.cmd',\"$env:APPDATA\\\\npm\\\\npm.cmd\",\"$env:LOCALAPPDATA\\\\Programs\\\\nodejs\\\\npm.cmd\",\"$env:ProgramFiles\\\\nodejs\\\\node.exe\",\"$env:LOCALAPPDATA\\\\fnm_multishells\"\\)\\) { if \\(Test-Path $p\\) { $candidates += $p } }; \"Candidates: $\\($candidates -join ', '\\)\"; $nodeCmd = Get-Command node -ErrorAction SilentlyContinue; \"node Get-Command: $\\($nodeCmd.Source\\)\"; $npmCmd = Get-Command npm -ErrorAction SilentlyContinue; \"npm Get-Command: $\\($npmCmd.Source\\)\"; \"PATH: $env:Path\")",
+      "PowerShell(Get-Command winget,choco,scoop -ErrorAction SilentlyContinue)",
+      "PowerShell(winget install --id OpenJS.NodeJS.LTS --silent --accept-package-agreements --accept-source-agreements --scope user 2>&1)",
+      "PowerShell($nodeRoot = \"$env:LOCALAPPDATA\\\\Microsoft\\\\WinGet\\\\Packages\"; Get-ChildItem $nodeRoot -Recurse -Filter 'node.exe' -ErrorAction SilentlyContinue | Select-Object -First 3 -ExpandProperty FullName)"
+    ],
+    "additionalDirectories": [
+      "c:\\New folder\\dash\\sqlladder\\src\\app\\topics"
     ]
   }
 }
